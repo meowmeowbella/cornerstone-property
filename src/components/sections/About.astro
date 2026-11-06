@@ -1,0 +1,22 @@
+---
+import Section from '../ui/Section.astro';
+import { about } from '../../data/site';
+---
+<Section id="about" heading={about.heading}>
+  <div class="layout">
+    <div>{about.paragraphs.map((p) => <p>{p}</p>)}</div>
+    <ul class="values">
+      {about.values.map((v) => (
+        <li><h3>{v.title}</h3><p>{v.text}</p></li>
+      ))}
+    </ul>
+  </div>
+</Section>
+
+<style>
+  .layout { display: grid; gap: var(--space-4); }
+  .values li { padding-left: var(--space-2); border-left: 3px solid var(--brass); margin-bottom: var(--space-3); }
+  h3 { font-size: var(--text-lg); margin-bottom: 0.25rem; }
+  .values p { margin: 0; color: var(--slate-700); }
+  @media (min-width: 56rem) { .layout { grid-template-columns: 1.2fr 0.8fr; gap: var(--space-5); } }
+</style>

@@ -1,0 +1,26 @@
+---
+import Section from '../ui/Section.astro';
+import { services } from '../../data/site';
+---
+<Section id="services" heading="What we do" intro="Three parts of one business, each held to the same standard." tone="stone">
+  <div class="grid">
+    {services.map((s) => (
+      <article id={`service-${s.id}`} class="service">
+        <h3>{s.title}</h3>
+        <p>{s.summary}</p>
+        <ul>{s.points.map((pt) => <li>{pt}</li>)}</ul>
+        <a href="#contact">Enquire about this</a>
+      </article>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .grid { display: grid; gap: var(--space-4); }
+  .service { background: #fff; padding: var(--space-3); border-top: 4px solid var(--slate-900); border-radius: var(--radius); }
+  h3 { font-size: var(--text-xl); }
+  ul { margin-block: var(--space-2); color: var(--slate-700); }
+  li { padding-block: 0.35rem; border-bottom: 1px solid var(--slate-200); }
+  a { font-weight: 600; color: var(--brass-dark); }
+  @media (min-width: 56rem) { .grid { grid-template-columns: repeat(3, 1fr); } }
+</style>

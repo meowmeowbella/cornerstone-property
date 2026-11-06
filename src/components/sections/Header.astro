@@ -1,0 +1,57 @@
+---
+import { nav, site } from '../../data/site';
+---
+<header class="header" data-header data-open="false">
+  <div class="bar">
+    <a class="brand" href="#top">{site.shortName}</a>
+    <button class="toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span class="visually-hidden">Menu</span>
+      <span class="line"></span><span class="line"></span><span class="line"></span>
+    </button>
+    <nav id="site-nav" class="nav" aria-label="Main">
+      <ul>
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header { position: sticky; top: 0; z-index: 10; background: var(--slate-950); color: #fff; }
+  .bar {
+    width: min(100% - 2.5rem, var(--max-width)); margin-inline: auto; height: var(--header-height);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-weight: 650; letter-spacing: -0.01em; text-decoration: none; font-size: var(--text-lg); }
+  .nav ul { display: flex; gap: var(--space-4); }
+  .nav a { text-decoration: none; color: var(--slate-200); }
+  .nav a:hover { color: #fff; }
+  .toggle { display: none; background: none; border: 0; padding: 0.75rem; cursor: pointer; }
+  .line { display: block; width: 1.5rem; height: 2px; background: #fff; margin-block: 5px; transition: transform 0.2s, opacity 0.2s; }
+
+  @media (max-width: 47.99rem) {
+    .toggle { display: block; }
+    .nav { position: absolute; inset: var(--header-height) 0 auto 0; background: var(--slate-950); display: none; padding: var(--space-2) 1.25rem var(--space-3); border-top: 1px solid var(--slate-700); }
+    .nav ul { flex-direction: column; gap: 0; }
+    .nav a { display: block; padding: 0.9rem 0; font-size: var(--text-lg); }
+    [data-open='true'] .nav { display: block; }
+    [data-open='true'] .line:nth-of-type(2) { transform: translateY(7px) rotate(45deg); }
+    [data-open='true'] .line:nth-of-type(3) { opacity: 0; }
+    [data-open='true'] .line:nth-of-type(4) { transform: translateY(-7px) rotate(-45deg); }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+  if (!header || !toggle) throw new Error('Header markup missing: [data-header] or [data-nav-toggle]');
+
+  const setOpen = (open: boolean) => {
+    header.dataset.open = String(open);
+    toggle.setAttribute('aria-expanded', String(open));
+  };
+
+  toggle.addEventListener('click', () => setOpen(header.dataset.open !== 'true'));
+  header.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+</script>

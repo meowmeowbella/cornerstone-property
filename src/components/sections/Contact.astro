@@ -1,0 +1,48 @@
+---
+import Section from '../ui/Section.astro';
+import { contactCopy, services, site } from '../../data/site';
+---
+<Section id="contact" heading={contactCopy.heading} intro={contactCopy.intro} tone="dark">
+  <div class="layout">
+    <dl class="details">
+      <dt>Email</dt><dd><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></dd>
+      <dt>Phone</dt><dd><a href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>{site.contact.phone}</a></dd>
+      <dt>Address</dt><dd>{site.contact.address}</dd>
+      <dt>Hours</dt><dd>{site.contact.hours}</dd>
+    </dl>
+
+    <!-- Netlify Forms: detected at build time, no backend needed. -->
+    <form name="enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="enquiry" />
+      <p class="visually-hidden"><label>Leave blank <input name="bot-field" /></label></p>
+      <label>Name <input name="name" required autocomplete="name" /></label>
+      <label>Email <input name="email" type="email" required autocomplete="email" /></label>
+      <label>Phone <input name="phone" type="tel" autocomplete="tel" /></label>
+      <label>I'm interested in
+        <select name="service">
+          {services.map((s) => <option value={s.title}>{s.title}</option>)}
+        </select>
+      </label>
+      <label>Message <textarea name="message" rows="5" required></textarea></label>
+      <button type="submit">Send enquiry</button>
+    </form>
+  </div>
+</Section>
+
+<style>
+  .layout { display: grid; gap: var(--space-5); }
+  dt { color: var(--slate-200); font-size: var(--text-sm); margin-top: var(--space-2); }
+  dd { margin: 0; font-size: var(--text-lg); }
+  form { display: grid; gap: var(--space-2); }
+  label { display: grid; gap: 0.35rem; font-weight: 500; }
+  input, select, textarea {
+    font: inherit; padding: 0.75rem; border-radius: var(--radius);
+    border: 1px solid var(--slate-500); background: var(--slate-950); color: #fff;
+  }
+  button {
+    font: inherit; font-weight: 600; padding: 0.9rem 1.6rem; border: 0; border-radius: var(--radius);
+    background: var(--brass); color: var(--slate-950); cursor: pointer; justify-self: start;
+  }
+  button:hover { background: var(--brass-dark); color: #fff; }
+  @media (min-width: 56rem) { .layout { grid-template-columns: 0.8fr 1.2fr; } }
+</style>

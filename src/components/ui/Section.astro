@@ -1,0 +1,30 @@
+---
+interface Props {
+  id: string;
+  heading: string;
+  intro?: string;
+  tone?: 'light' | 'stone' | 'dark';
+}
+const { id, heading, intro, tone = 'light' } = Astro.props;
+---
+<section id={id} class={`section tone-${tone}`} aria-labelledby={`${id}-heading`}>
+  <div class="inner">
+    <header class="head">
+      <h2 id={`${id}-heading`}>{heading}</h2>
+      {intro && <p class="intro">{intro}</p>}
+    </header>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section { padding-block: var(--space-6); }
+  .inner { width: min(100% - 2.5rem, var(--max-width)); margin-inline: auto; }
+  .head { margin-bottom: var(--space-4); }
+  h2 { font-size: var(--text-2xl); }
+  .intro { font-size: var(--text-lg); color: var(--slate-500); }
+  .tone-light { background: var(--paper); }
+  .tone-stone { background: var(--stone-100); }
+  .tone-dark { background: var(--slate-900); color: #fff; }
+  .tone-dark .intro { color: var(--slate-200); }
+</style>

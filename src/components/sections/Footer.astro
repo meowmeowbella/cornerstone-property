@@ -1,0 +1,15 @@
+---
+import { site } from '../../data/site';
+---
+<footer class="footer">
+  <div class="inner">
+    <p>&copy; {new Date().getFullYear()} {site.name}</p>
+    <p>Registered in {site.company.registeredIn}, company number {site.company.number}. VAT {site.company.vat}.</p>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--slate-950); color: var(--slate-200); padding-block: var(--space-4); font-size: var(--text-sm); }
+  .inner { width: min(100% - 2.5rem, var(--max-width)); margin-inline: auto; }
+  p { margin: 0 0 0.25rem; max-width: none; }
+</style>
