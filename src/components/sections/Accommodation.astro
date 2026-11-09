@@ -1,13 +1,12 @@
 ---
 import Section from '../ui/Section.astro';
-import Placeholder from '../ui/Placeholder.astro';
 import { accommodation } from '../../data/site';
 ---
 <Section id="accommodation" heading={accommodation.heading} intro={accommodation.intro}>
   <ul class="grid">
     {accommodation.properties.map((p) => (
       <li>
-        <Placeholder label={`Photo: ${p.name}`} />
+        <img {...p.image} class="photo" loading="lazy" />
         <h3>{p.name}</h3>
         <p class="meta">{p.type}, {p.area}</p>
         <p>{p.description}</p>
@@ -18,6 +17,7 @@ import { accommodation } from '../../data/site';
 
 <style>
   .grid { display: grid; gap: var(--space-4) var(--space-3); }
+  .photo { width: 100%; height: auto; border-radius: var(--radius); }
   h3 { font-size: var(--text-lg); margin: var(--space-2) 0 0.25rem; }
   .meta { color: var(--slate-500); margin-bottom: 0.5rem; }
   @media (min-width: 40rem) { .grid { grid-template-columns: repeat(2, 1fr); } }

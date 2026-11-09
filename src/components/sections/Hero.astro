@@ -1,6 +1,5 @@
 ---
 import Button from '../ui/Button.astro';
-import Placeholder from '../ui/Placeholder.astro';
 import { hero } from '../../data/site';
 ---
 <section id="top" class="hero">
@@ -13,12 +12,13 @@ import { hero } from '../../data/site';
         <Button href={hero.secondaryCta.href} variant="secondary">{hero.secondaryCta.label}</Button>
       </div>
     </div>
-    <div class="media"><Placeholder label="Hero image: flagship property" ratio="4 / 5" /></div>
+    <div class="media"><img {...hero.image} class="photo" fetchpriority="high" /></div>
   </div>
 </section>
 
 <style>
   .hero { background: var(--slate-900); color: #fff; padding-block: var(--space-5) var(--space-6); }
+  .photo { width: 100%; height: auto; border-radius: var(--radius); }
   .inner { width: min(100% - 2.5rem, var(--max-width)); margin-inline: auto; display: grid; gap: var(--space-4); align-items: center; }
   h1 { font-size: var(--text-hero); max-width: 14ch; }
   p { font-size: var(--text-lg); color: var(--slate-200); }

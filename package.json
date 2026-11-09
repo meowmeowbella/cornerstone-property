@@ -3,7 +3,9 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
@@ -12,6 +14,8 @@
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.1.0",
+    "@sanity/client": "^8.15.0",
+    "@sanity/image-url": "^2.1.1",
     "astro": "^6.1.0"
   },
   "devDependencies": {
