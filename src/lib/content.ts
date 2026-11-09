@@ -1,12 +1,12 @@
 import {createClient} from '@sanity/client';
-import imageUrlBuilder from '@sanity/image-url';
+import { createImageUrlBuilder } from '@sanity/image-url';
 
 const projectId = import.meta.env.SANITY_PROJECT_ID;
 const dataset = import.meta.env.SANITY_DATASET;
 if (!projectId || !dataset) throw new Error('Set SANITY_PROJECT_ID and SANITY_DATASET (see .env.example)');
 
 const client = createClient({projectId, dataset, apiVersion: '2025-01-01', useCdn: false});
-const builder = imageUrlBuilder(client);
+const builder = createImageUrlBuilder(client);
 
 interface Photo { asset: { _ref: string }; alt: string }
 interface Settings { email: string; phone: string; address: string; hours: string; companyNumber: string; vat: string }

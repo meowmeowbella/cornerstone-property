@@ -5,7 +5,7 @@ import { services } from '../../data/site';
 <Section id="services" heading="What we do" intro="Three parts of one business, each held to the same standard." tone="stone">
   <div class="grid">
     {services.map((s) => (
-      <article id={`service-${s.id}`} class="service">
+      <article class="service">
         <h3>{s.title}</h3>
         <p>{s.summary}</p>
         <ul>{s.points.map((pt) => <li>{pt}</li>)}</ul>
